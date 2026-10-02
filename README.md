@@ -1,0 +1,2 @@
+# poolchatter
+Chatbot without llm
