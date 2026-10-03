@@ -3,7 +3,7 @@
 Chatbot without an LLM. Meet **Deadpool** — a rule-based chatbot with memory, retrieval, and Markov babble, stdlib only.
 
 ## Files
-
+- `bot.js` - made to host the app on github pages
 - `bot.py` — all bot logic, no dependencies (`re`, `random`, `math`, `collections` only)
 - `app.py` — `http.server`-based web server: serves `index.html` on `GET /`, JSON chat on `POST /api/chat` with per-session `PoolChatter` instances
 - `index.html` — single-file chat UI (black/red Deadpool theme, message log, typing indicator, `fetch('/api/chat')`)

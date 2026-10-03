@@ -21,12 +21,12 @@ button{padding:10px 16px;border-radius:8px;border:0;background:#f55;font-weight:
 
 <div id=row><input id=in placeholder="Say hi…" autocomplete=off><button onclick=send()>Send</button></div>
 
-<script>const sid=Math.random().toString(36).slice(2),log=document.getElementById('log'),inp=document.getElementById('in');
+<script src="bot.js"></script>
+<script>const bot=new PoolChatter(),log=document.getElementById('log'),inp=document.getElementById('in');
 function add(c,t){const d=document.createElement('div');d.className=c;const s=document.createElement('span');s.textContent=t;d.appendChild(s);log.appendChild(d);log.scrollTop=1e6}
-async function send(){const m=inp.value.trim();if(!m)return;inp.value='';add('u',m);
+function send(){const m=inp.value.trim();if(!m)return;inp.value='';add('u',m);
 const tp=document.createElement('div');tp.className='b typing';tp.textContent='Deadpool thinking of some random controversial nonsense…';log.appendChild(tp);log.scrollTop=1e6;
-const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:sid,message:m})});
-const j=await r.json();tp.remove();add('b',j.reply)}
+const reply=bot.reply(m);setTimeout(()=>{tp.remove();add('b',reply)},Math.min(400+reply.length*20,2000))}
 inp.addEventListener('keydown',e=>{if(e.key==='Enter')send()});add('b',"Hey, I'm Deadpool. What's your name?");
 </script>
 
