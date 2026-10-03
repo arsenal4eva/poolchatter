@@ -1,0 +1,33 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
+<title>PoolChatter</title>
+
+<style>body{font-family:system-ui;background:#000;color:#f00;max-width:640px;margin:0 auto;padding:16px}
+#log{border:1px solid #fff;border-radius:12px;padding:12px;height:60vh;overflow:auto;background:#f00}
+.u{text-align:right;margin:8px}.u span{background:#fff;padding:8px 12px;border-radius:12px;display:inline-block}
+.b{margin:8px}.b span{background:#000;padding:8px 12px;border-radius:12px;display:inline-block}
+#row{display:flex;gap:8px;margin-top:12px}input{flex:1;padding:10px;border-radius:8px;border:0}
+button{padding:10px 16px;border-radius:8px;border:0;background:#f55;font-weight:700;cursor:pointer}
+.typing{opacity:.6;font-style:italic}</style>
+
+
+<div>
+
+<h1>PoolChatter</h1>
+<p>Yes more Deadpool</p>
+
+<p>Deadpool like chatbot, no LLM</p>
+
+<div id=log></div>
+
+<div id=row><input id=in placeholder="Say hi…" autocomplete=off><button onclick=send()>Send</button></div>
+
+<script>const sid=Math.random().toString(36).slice(2),log=document.getElementById('log'),inp=document.getElementById('in');
+function add(c,t){const d=document.createElement('div');d.className=c;const s=document.createElement('span');s.textContent=t;d.appendChild(s);log.appendChild(d);log.scrollTop=1e6}
+async function send(){const m=inp.value.trim();if(!m)return;inp.value='';add('u',m);
+const tp=document.createElement('div');tp.className='b typing';tp.textContent='Deadpool thinking of some random controversial nonsense…';log.appendChild(tp);log.scrollTop=1e6;
+const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:sid,message:m})});
+const j=await r.json();tp.remove();add('b',j.reply)}
+inp.addEventListener('keydown',e=>{if(e.key==='Enter')send()});add('b',"Hey, I'm Deadpool. What's your name?");
+</script>
+
+</div>
